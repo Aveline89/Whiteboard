@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="WhiteBoard:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/WhiteBoard_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="WhiteBoard/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="WhiteBoard" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
