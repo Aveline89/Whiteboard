@@ -20,18 +20,28 @@ public class Fenetre extends JFrame{
     JMenu connexion;
     JMenu inscription;
 
-    // création des boutons sur la page
+    // création des boutons de choix de tableaux et d'effacage générale
     JButton butTab1;
     JButton butTab2;
     JButton butTab3;
     JButton btClear;
-    JButton crayon;
-    JButton gomme;
+
+    // boutons permettant le choix du crayon et de sa couleur
+    JButton btnPen;
+    JButton btnEraser;
+    JButton btnColorRed;
+    JButton btnColorBlack;
+    JButton btnColorBlue;
+    JButton btnColorGreen;
+
+    // boutons permettant l'insertion de zone de texte
+    JButton btnTextField;
 
     //Création des controles
     public ControlTableau controlTab;
     public ControlMenu controlMenu;
     public ControleClear clear;
+    public ControlTools controlTools;
 
     //création d'un tableau
     //WhiteBoard whiteBoard;
@@ -43,6 +53,8 @@ public class Fenetre extends JFrame{
     JPanel ptab2;
     JPanel ptab3;
     JPanel ptableau;
+    JPanel panToolBox;
+
 
 
 
@@ -51,6 +63,7 @@ public class Fenetre extends JFrame{
         initAtribut();
         creerInterface();
         creerMenu();
+        creerBoiteaOutil();
         pack();
         setSize(650,650);                   // Fixe la taille par défaut
         setVisible(true);                                // Affiche la fenetre
@@ -61,7 +74,7 @@ public class Fenetre extends JFrame{
 
     public void initAtribut()
     {
-        // initiation menu
+        // initialisation menu
         barMenu = new JMenuBar();
         itemDiagramme = new JMenuItem("Diagramme");
         itemImage = new JMenuItem("Image");
@@ -73,14 +86,23 @@ public class Fenetre extends JFrame{
         connexion = new JMenu("Connexion");
         inscription = new JMenu("Inscription");
 
+        // Initiallisation Boite a outil
+        btnPen = new JButton("Crayon");
+        btnEraser = new JButton ("Gomme");
+        btnTextField = new JButton("Text");
+        btnColorBlack = new JButton();
+        btnColorRed = new JButton();
+        btnColorBlue = new JButton();
+        btnColorGreen = new JButton();
+        panToolBox = new JPanel();
 
-        //initiation des boutons sur la page principale
+
+
+        //initialisation des boutons sur la page principale
         butTab1 = new JButton("Tableau 1");
         butTab2 = new JButton("Tableau 2");
         butTab3 = new JButton("Tableau 3");
         btClear = new JButton("Clear");
-        crayon = new JButton("Crayon");
-        gomme = new JButton("gomme");
 
 
         //initiation des contrôles pour les action du Menu et des tableaux
@@ -90,9 +112,9 @@ public class Fenetre extends JFrame{
 
 
         // création des tableaux
-        tableau1 = new WhiteBoard(1, Color.red);
-        tableau2 = new WhiteBoard(2,Color.blue);
-        tableau3 = new WhiteBoard(3, Color.magenta);
+        tableau1 = new WhiteBoard(1);
+        tableau2 = new WhiteBoard(2);
+        tableau3 = new WhiteBoard(3);
         tableauCourant =tableau1;
 
         ptab1 = new JPanel();
@@ -100,9 +122,8 @@ public class Fenetre extends JFrame{
         ptab3 = new JPanel();
         ptableau = new JPanel();
 
-
-
     }
+
 
     public void creerMenu() {
         //gestion des actions si on clic sur un des menu
@@ -138,9 +159,11 @@ public class Fenetre extends JFrame{
 
     }
 
+
+
     public void creerInterface()
     {
-        /**pour superposer setLayout = null*/
+
         //création du panel général avec alignement verticale des éléments
         JPanel pano = new JPanel();
         pano.setLayout(new BoxLayout(pano, BoxLayout.Y_AXIS));
@@ -154,8 +177,6 @@ public class Fenetre extends JFrame{
         panButTab.add(butTab2);
         panButTab.add(butTab3);
         panButTab.add(btClear);
-        panButTab.add(gomme);
-        panButTab.add(crayon);
 
         // ajout du panel avec les boutons dans le panel
         pano.add(panButTab);
@@ -167,6 +188,23 @@ public class Fenetre extends JFrame{
 
         setContentPane(ptableau);
 
+        // ajout du paneau Boite a outils
+        panToolBox = new JPanel();
+        panToolBox.setLayout(new BoxLayout(panToolBox, BoxLayout.Y_AXIS));
+        panToolBox.setBackground(Color.WHITE);
+
+        panToolBox.add(btnPen);
+        panToolBox.add(btnEraser);
+        panToolBox.add(btnTextField);
+        panToolBox.add(btnColorBlack);
+        panToolBox.add(btnColorRed);
+        panToolBox.add(btnColorBlue);
+        panToolBox.add(btnColorGreen);
+        setContentPane(panToolBox);
+
+        pano.add(panToolBox);
+
+
         //ajout des actions sur les boutons
         butTab1.addActionListener(controlTab);
         butTab2.addActionListener(controlTab);
@@ -176,6 +214,28 @@ public class Fenetre extends JFrame{
         //permet l'affichag du panel général
         setContentPane(pano);
 
+    }
+
+    public void creerBoiteaOutil()
+    {
+        controlTools = new ControlTools(this, tableauCourant);
+
+        btnPen.addActionListener(controlTab);
+        btnTextField.addActionListener(controlTab);
+
+        btnEraser.addActionListener(controlTab);
+
+        btnColorBlack.addActionListener(controlTab);
+        btnColorBlack.setBackground(Color.BLACK);
+
+        btnColorRed.addActionListener(controlTab);
+        btnColorRed.setBackground(Color.RED);
+
+        btnColorBlue.addActionListener(controlTab);
+        btnColorBlue.setBackground(Color.BLUE);
+
+        btnColorGreen.addActionListener(controlTab);
+        btnColorGreen.setBackground(Color.GREEN);
     }
 
 }

@@ -9,24 +9,24 @@ import java.awt.event.MouseMotionListener;
 public class WhiteBoard extends JPanel implements MouseListener, MouseMotionListener {
     private Point curr = null;
     private Point prev = null;
+    private Color couleurPinceau;
+    private Color couleurFond;
 
     //Permet d'identifier le tableau pour faciliter le traitement pour l'action du bouton clear
     public int id;
-
-    //Permet de choisir la couleur du tableau
-    public Color couleur;
 
 
     /**
      * constructeur pour définir un identifiant du tableau pour faciliter le traitement avec le bouton clear
      * @param id
      */
-    public WhiteBoard(int id, Color couleur) {
+    public WhiteBoard(int id) {
         addMouseListener(this);
         addMouseMotionListener(this);
         setOpaque(false);
         this.id = id;
-        this.couleur = couleur;
+        this.couleurPinceau = Color.BLACK;
+        this.couleurFond = Color.LIGHT_GRAY;
     }
 
     public void clear() {
@@ -46,8 +46,17 @@ public class WhiteBoard extends JPanel implements MouseListener, MouseMotionList
         prev=curr;
         curr=e.getPoint();
         final Graphics g = getGraphics();
-        g.setColor(this.couleur);
+        g.setColor(couleurPinceau);
         g.drawLine(prev.x,prev.y,curr.x,curr.y);
+    }
+
+    public void setCouleurPinceau(Color couleurCourante)
+    {
+        this.couleurPinceau = couleurCourante;
+    }
+
+    public Color getCouleurFond(){
+        return this.couleurFond;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.codebind;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,8 @@ public class ControlTableau extends JFrame implements ActionListener {
 
     Fenetre fen;
     List<WhiteBoard> listeTableau;
+
+    Color couleurCourante;
 
     /**
      * constructeur
@@ -19,6 +22,7 @@ public class ControlTableau extends JFrame implements ActionListener {
         listeTableau.add(fen.tableau1);
         listeTableau.add(fen.tableau2);
         listeTableau.add(fen.tableau3);
+
 
     }
 
@@ -43,7 +47,7 @@ public class ControlTableau extends JFrame implements ActionListener {
             fen.tableau1.setVisible(true);
             fen.tableau2.setVisible(false);
             fen.tableau3.setVisible(false);
-            System.out.println(fen.tableauCourant.getId());
+            //System.out.println(fen.tableauCourant.getId());
         }
 
         //action du bouton butTab2
@@ -56,7 +60,7 @@ public class ControlTableau extends JFrame implements ActionListener {
             fen.tableau2.setVisible(true);
             fen.tableau1.setVisible(false);
             fen.tableau3.setVisible(false);
-            System.out.println(fen.tableauCourant.getId());
+            //System.out.println(fen.tableauCourant.getId());
         }
 
         //action du bouton butTab3
@@ -69,6 +73,61 @@ public class ControlTableau extends JFrame implements ActionListener {
             fen.tableau3.setVisible(true);
             fen.tableau1.setVisible(false);
             fen.tableau2.setVisible(false);
+            //System.out.println(fen.tableauCourant.getId());
+        }
+
+        if(actionEvent.getSource() == fen.btnTextField)
+        {
+            JTextField textField = new JTextField();
+            textField.setSize(50,50);
+            fen.add(textField);
+            fen.validate();
+            fen.repaint();
+        }
+
+        if(actionEvent.getSource() == fen.btnColorBlue)
+        {
+            fen.tableauCourant.setCouleurPinceau(Color.BLUE);
+            this.couleurCourante = Color.BLUE;
+            System.out.println(fen.tableauCourant.getId());
+            System.out.println(fen.tableauCourant.getId());
+        }
+
+        if(actionEvent.getSource() == fen.btnColorGreen)
+        {
+            fen.tableauCourant.setCouleurPinceau(Color.GREEN);
+            this.couleurCourante = Color.GREEN;
+            System.out.println(fen.tableauCourant.getId());
+            System.out.println(fen.tableauCourant.getId());
+        }
+
+        if(actionEvent.getSource() == fen.btnColorRed)
+        {
+            fen.tableauCourant.setCouleurPinceau(Color.RED);
+            this.couleurCourante = Color.RED;
+            System.out.println(fen.tableauCourant.getId());
+            System.out.println(fen.tableauCourant.getId());
+        }
+
+        if(actionEvent.getSource() == fen.btnColorBlack)
+        {
+            fen.tableauCourant.setCouleurPinceau(Color.BLACK);
+            this.couleurCourante = Color.BLACK;
+            System.out.println(fen.tableauCourant.getId());
+            System.out.println(fen.tableauCourant.getId());
+        }
+
+        if(actionEvent.getSource() == fen.btnEraser)
+        {
+            fen.tableauCourant.setCouleurPinceau(fen.tableauCourant.getCouleurFond());
+            System.out.println(fen.tableauCourant.getId());
+            System.out.println(fen.tableauCourant.getId());
+        }
+
+        if(actionEvent.getSource() == fen.btnPen)
+        {
+            fen.tableauCourant.setCouleurPinceau(this.couleurCourante);
+            System.out.println(fen.tableauCourant.getId());
             System.out.println(fen.tableauCourant.getId());
         }
     }

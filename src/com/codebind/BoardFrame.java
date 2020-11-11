@@ -7,7 +7,7 @@ import java.awt.TextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class BoardFrame extends JFrame {
+public class BoardFrame extends JFrame{
 
 	public BoardFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,18 +17,16 @@ public class BoardFrame extends JFrame {
 		TextField tfTableau1 = new TextField();
 		tfTableau1.setBackground(Color.WHITE);
 		tfTableau.setBackground(Color.WHITE);
-		tfTableau.setBounds(200, 200, 800, 500);
-		tfTableau1.setBounds(1050, 400, 200, 300);
+		tfTableau.setBounds(200,200,800,500);
+		tfTableau1.setBounds(1050,400,200, 300);
 		panel.setLayout(null);
 		panel.add(tfTableau, "align center");
 		panel.add(tfTableau1, "");
-
+		
 		setContentPane(panel);
 	}
 
-	/**
-
-	public static void main(String[] args) {
+	/**public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 
 			@Override
@@ -37,7 +35,5 @@ public class BoardFrame extends JFrame {
 				frame.setVisible(true);
 			}
 		});
-	}
-
-	 */
+	}*/
 }
