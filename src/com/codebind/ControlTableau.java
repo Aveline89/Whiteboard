@@ -9,6 +9,7 @@ public class ControlTableau extends JFrame implements ActionListener {
 
     Fenetre fen;
     List<WhiteBoard> listeTableau;
+    WhiteBoard backup_1;
 
     Color couleurCourante;
 
@@ -22,8 +23,8 @@ public class ControlTableau extends JFrame implements ActionListener {
         listeTableau.add(fen.tableau1);
         listeTableau.add(fen.tableau2);
         listeTableau.add(fen.tableau3);
-
-
+        
+        backup_1 = new WhiteBoard(01);
     }
 
     /**
@@ -32,22 +33,23 @@ public class ControlTableau extends JFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent actionEvent)
     {
-        /**listeTableau.get(0).setVisible(false);
-        listeTableau.get(1).setVisible(false);
-        listeTableau.get(2).setVisible(false);*/
 
+    	fen.tableau2.setVisible(false);
+    	fen.tableau3.setVisible(false);
         //action du bouton butTab1
         if(actionEvent.getSource() == fen.butTab1)
         {
-            //fen.ptab1.setVisible(false);
-            /**listeTableau.get(0).setVisible(true);
-            listeTableau.get(1).setVisible(false);
-            listeTableau.get(2).setVisible(false);*/
-            fen.tableauCourant = fen.tableau1;
-            fen.tableau1.setVisible(true);
-            fen.tableau2.setVisible(false);
-            fen.tableau3.setVisible(false);
-            //System.out.println(fen.tableauCourant.getId());
+        	if (fen.tableau1.isVisible())
+        	{
+        		fen.tableau1.setVisible(false);
+        		System.out.println("PASSAGE EN MODE INVISIBLE");
+        	}
+        	else
+        	{
+        		fen.tableau1.setVisible(true);
+        		System.out.println("PASSAGE EN MODE VISIBLE");
+        	}
+            
         }
 
         //action du bouton butTab2
@@ -57,9 +59,9 @@ public class ControlTableau extends JFrame implements ActionListener {
             listeTableau.get(0).setVisible(false);
             listeTableau.get(2).setVisible(false);*/
             fen.tableauCourant = fen.tableau2;
-            fen.tableau2.setVisible(true);
-            fen.tableau1.setVisible(false);
-            fen.tableau3.setVisible(false);
+//            fen.tableau2.setVisible(true);
+//            fen.tableau1.setVisible(false);
+//            fen.tableau3.setVisible(false);
             //System.out.println(fen.tableauCourant.getId());
         }
 
@@ -70,9 +72,9 @@ public class ControlTableau extends JFrame implements ActionListener {
             listeTableau.get(1).setVisible(false);
             listeTableau.get(0).setVisible(false);*/
             fen.tableauCourant = fen.tableau3;
-            fen.tableau3.setVisible(true);
-            fen.tableau1.setVisible(false);
-            fen.tableau2.setVisible(false);
+//            fen.tableau3.setVisible(true);
+//            fen.tableau1.setVisible(false);
+//            fen.tableau2.setVisible(false);
             //System.out.println(fen.tableauCourant.getId());
         }
 
@@ -85,37 +87,6 @@ public class ControlTableau extends JFrame implements ActionListener {
             fen.repaint();
         }
 
-        if(actionEvent.getSource() == fen.btnColorBlue)
-        {
-            fen.tableauCourant.setCouleurPinceau(Color.BLUE);
-            this.couleurCourante = Color.BLUE;
-            System.out.println(fen.tableauCourant.getId());
-            System.out.println(fen.tableauCourant.getId());
-        }
-
-        if(actionEvent.getSource() == fen.btnColorGreen)
-        {
-            fen.tableauCourant.setCouleurPinceau(Color.GREEN);
-            this.couleurCourante = Color.GREEN;
-            System.out.println(fen.tableauCourant.getId());
-            System.out.println(fen.tableauCourant.getId());
-        }
-
-        if(actionEvent.getSource() == fen.btnColorRed)
-        {
-            fen.tableauCourant.setCouleurPinceau(Color.RED);
-            this.couleurCourante = Color.RED;
-            System.out.println(fen.tableauCourant.getId());
-            System.out.println(fen.tableauCourant.getId());
-        }
-
-        if(actionEvent.getSource() == fen.btnColorBlack)
-        {
-            fen.tableauCourant.setCouleurPinceau(Color.BLACK);
-            this.couleurCourante = Color.BLACK;
-            System.out.println(fen.tableauCourant.getId());
-            System.out.println(fen.tableauCourant.getId());
-        }
 
         if(actionEvent.getSource() == fen.btnEraser)
         {
@@ -129,6 +100,17 @@ public class ControlTableau extends JFrame implements ActionListener {
             fen.tableauCourant.setCouleurPinceau(this.couleurCourante);
             System.out.println(fen.tableauCourant.getId());
             System.out.println(fen.tableauCourant.getId());
+        }
+        
+        if(actionEvent.getSource() == fen.choixTaille)
+        {
+        	fen.tableau1.setTaille( Integer.parseInt( (String) fen.choixTaille.getSelectedItem() ) );
+        }
+        
+        if(actionEvent.getSource() == fen.choixCouleur)
+        {
+        	ColorWindow colorSelector = new ColorWindow();
+            fen.tableauCourant.setCouleurPinceau( colorSelector.getColor() ) ;
         }
     }
 

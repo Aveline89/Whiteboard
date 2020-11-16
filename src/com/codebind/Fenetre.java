@@ -29,11 +29,9 @@ public class Fenetre extends JFrame{
     // boutons permettant le choix du crayon et de sa couleur
     JButton btnPen;
     JButton btnEraser;
-    JButton btnColorRed;
-    JButton btnColorBlack;
-    JButton btnColorBlue;
-    JButton btnColorGreen;
-
+    JComboBox choixTaille; 
+    JButton choixCouleur;
+    
     // boutons permettant l'insertion de zone de texte
     JButton btnTextField;
 
@@ -41,7 +39,7 @@ public class Fenetre extends JFrame{
     public ControlTableau controlTab;
     public ControlMenu controlMenu;
     public ControleClear clear;
-    public ControlTools controlTools;
+    //public ControlTools controlTools;
 
     //création d'un tableau
     //WhiteBoard whiteBoard;
@@ -90,12 +88,8 @@ public class Fenetre extends JFrame{
         btnPen = new JButton("Crayon");
         btnEraser = new JButton ("Gomme");
         btnTextField = new JButton("Text");
-        btnColorBlack = new JButton();
-        btnColorRed = new JButton();
-        btnColorBlue = new JButton();
-        btnColorGreen = new JButton();
+        choixCouleur = new JButton("Changer de couleur");
         panToolBox = new JPanel();
-
 
 
         //initialisation des boutons sur la page principale
@@ -104,18 +98,31 @@ public class Fenetre extends JFrame{
         butTab3 = new JButton("Tableau 3");
         btClear = new JButton("Clear");
 
+        
+        // création des tableaux
+        tableau1 = new WhiteBoard(1);
+        tableau2 = new WhiteBoard(2);
+        tableau3 = new WhiteBoard(3);
+        tableauCourant =tableau1;
+        
+      //initialisation de la ComboBo
+        String[] listeTaille = new String [25];
+        for(Integer i = 1; i <= 25; i++)
+        {
+        	listeTaille[i-1] = i.toString();
+        }
+        choixTaille = new JComboBox(listeTaille);
+        choixTaille.setPreferredSize(new Dimension(50,25));
 
+        choixTaille.setMaximumSize( choixTaille.getPreferredSize() );
+        
         //initiation des contrôles pour les action du Menu et des tableaux
         controlTab = new ControlTableau(this);
         controlMenu = new ControlMenu(this);
         clear = new ControleClear(this);
 
 
-        // création des tableaux
-        tableau1 = new WhiteBoard(1);
-        tableau2 = new WhiteBoard(2);
-        tableau3 = new WhiteBoard(3);
-        tableauCourant =tableau1;
+        
 
         ptab1 = new JPanel();
         ptab2 = new JPanel();
@@ -150,8 +157,8 @@ public class Fenetre extends JFrame{
 
         //ajout des tableaux
         getContentPane().add(tableau1, BorderLayout.CENTER);
-        getContentPane().add(tableau2, BorderLayout.CENTER);
-        getContentPane().add(tableau3, BorderLayout.CENTER);
+//        getContentPane().add(tableau2, BorderLayout.CENTER);
+//        getContentPane().add(tableau3, BorderLayout.CENTER);
 
 
         tableau2.setVisible(false);
@@ -196,10 +203,8 @@ public class Fenetre extends JFrame{
         panToolBox.add(btnPen);
         panToolBox.add(btnEraser);
         panToolBox.add(btnTextField);
-        panToolBox.add(btnColorBlack);
-        panToolBox.add(btnColorRed);
-        panToolBox.add(btnColorBlue);
-        panToolBox.add(btnColorGreen);
+        panToolBox.add(choixTaille);
+        panToolBox.add(choixCouleur);
         setContentPane(panToolBox);
 
         pano.add(panToolBox);
@@ -210,6 +215,9 @@ public class Fenetre extends JFrame{
         butTab2.addActionListener(controlTab);
         butTab3.addActionListener(controlTab);
         btClear.addActionListener(clear);
+        
+        //ajout du controller sur la jcombobox
+        choixTaille.addActionListener(controlTab);
 
         //permet l'affichag du panel général
         setContentPane(pano);
@@ -218,24 +226,15 @@ public class Fenetre extends JFrame{
 
     public void creerBoiteaOutil()
     {
-        controlTools = new ControlTools(this, tableauCourant);
+        //controlTools = new ControlTools(this, tableauCourant);
 
         btnPen.addActionListener(controlTab);
         btnTextField.addActionListener(controlTab);
 
         btnEraser.addActionListener(controlTab);
-
-        btnColorBlack.addActionListener(controlTab);
-        btnColorBlack.setBackground(Color.BLACK);
-
-        btnColorRed.addActionListener(controlTab);
-        btnColorRed.setBackground(Color.RED);
-
-        btnColorBlue.addActionListener(controlTab);
-        btnColorBlue.setBackground(Color.BLUE);
-
-        btnColorGreen.addActionListener(controlTab);
-        btnColorGreen.setBackground(Color.GREEN);
+        
+        choixCouleur.addActionListener(controlTab);
     }
+    
 
 }
